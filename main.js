@@ -1,5 +1,37 @@
 const app = document.getElementById("app")
 
+const users = [
+    {}
+]
+
+const getUser = (userData => {
+    return userData.find((user) => {
+        return user.email == userData.email
+    })
+})
+
+const getTotalSubscribers = (userData) =>{
+    const subs = users.filter((user) => {
+        return user.refBy == userData.ref
+    })
+    return subs.length
+}
+
+const showInvite = userData=> {
+    app.innerHTML = `
+    <input type="text" id="link" value="https://evento.com?ref=${userData.ref}" disabled>
+
+    <div id="stats">
+        <h4>
+            ${getTotalSubscribers(userData)}
+        </h4>
+        <p>
+            Inscrições Abertas
+        </p>
+    </div>
+    `    
+}
+
 const formAction = () => {
 
     const form = document.getElementById("form")
@@ -10,6 +42,7 @@ const formAction = () => {
             email: formData.get('email'),
             phone: formData.get('phone')
         }
+
     }
 
 }
